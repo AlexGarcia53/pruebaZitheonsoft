@@ -1,7 +1,5 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,16 +10,18 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "academic_degrees")
-public class AcademicDegree {
+@Table(name="contact_data")
+public class ContactData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "start_date")
-    private LocalDate startDate;
-    @Column(name = "end_date")
-    private LocalDate endDate;
-    private String name;
-    private String institution;
+    @Column(name="company_email")
+    private String companyEmail;
+    @Column(name="personal_email")
+    private String personalEmail;
+    @Column(name="company_phone")
+    private String companyPhone;
+    @Column(name="personal_phone")
+    private String personalPhone;
 }

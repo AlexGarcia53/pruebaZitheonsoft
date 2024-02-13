@@ -1,5 +1,5 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums;
 
-public enum GENDER {
+public enum Gender {
     MALE, FEMALE, OTHER
 }
