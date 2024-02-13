@@ -5,7 +5,7 @@ import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.CivilStat
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.CourseStatus;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.Gender;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.Level;
-import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.repositories.UserRepository;
+import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,7 +18,7 @@ import java.util.List;
 public class ServicioUsuariosApplication implements CommandLineRunner{
 
 	@Autowired
-	private UserRepository userRepository;
+	private IUserRepository userRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServicioUsuariosApplication.class, args);
