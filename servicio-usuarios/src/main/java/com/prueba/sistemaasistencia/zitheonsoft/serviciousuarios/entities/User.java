@@ -16,7 +16,14 @@ public class User {
     private String name;
     private String lastname;
     private String nacionality;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name="work_status")
+    private WorkStatus workStatus;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+    @Enumerated(value = EnumType.STRING)
     private Gender gender;
+    @Enumerated(value = EnumType.STRING)
     @Column(name="civil_status")
     private CivilStatus civilStatus;
     @Column(name="birth_date")
