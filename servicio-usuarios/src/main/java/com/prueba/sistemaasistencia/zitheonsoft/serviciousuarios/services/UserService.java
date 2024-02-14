@@ -1,11 +1,13 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.dtos.UserDTO;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities.User;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.repositories.IUserRepository;
 
@@ -61,6 +63,12 @@ public class UserService implements IUserService{
             userRepository.delete(userObtained);
         });
         return userOptional;
+    }
+
+    @Transactional
+    @Override
+    public List<UserDTO> findAll() {
+        return userRepository.findAllDTO();
     }
 
 }
