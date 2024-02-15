@@ -28,7 +28,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody User user){
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
     }
 
     @PutMapping("/{id}")

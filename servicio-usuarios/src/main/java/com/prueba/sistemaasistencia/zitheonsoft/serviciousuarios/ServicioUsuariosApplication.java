@@ -26,7 +26,7 @@ public class ServicioUsuariosApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		deleteTestUser();
+		//deleteTestUser();
 		//loadTestUser();
 	}
 
