@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.dtos.UserDTO;
+import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.dtos.UserDataDTO;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.utils.WrapperResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -56,6 +57,13 @@ public class UserController {
     public ResponseEntity<WrapperResponse<List<UserDTO>>> findAll(@PageableDefault(page = 0, size = 10) Pageable pageable){
         List<UserDTO> users = userService.findAll(pageable.getPageNumber(), pageable.getPageSize());
         WrapperResponse<List<UserDTO>> response = new WrapperResponse<>("Usuarios obtenidos", users);
+        return response.createResponse(HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<WrapperResponse<UserDataDTO>> findById(@PathVariable Long id){
+        UserDataDTO userData = userService.findUserData(id);
+        WrapperResponse<UserDataDTO> response = new WrapperResponse<>("Datos del usuario obtenidos", userData);
         return response.createResponse(HttpStatus.OK);
     }
 }

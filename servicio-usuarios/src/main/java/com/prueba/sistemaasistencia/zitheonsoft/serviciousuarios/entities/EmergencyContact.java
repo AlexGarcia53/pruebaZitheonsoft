@@ -1,5 +1,6 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class EmergencyContact {
     private String lastname;
     private String relationship;
     private String address;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

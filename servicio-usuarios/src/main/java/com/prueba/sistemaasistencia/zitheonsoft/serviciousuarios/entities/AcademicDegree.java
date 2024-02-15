@@ -2,6 +2,7 @@ package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class AcademicDegree {
     private LocalDate endDate;
     private String name;
     private String institution;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

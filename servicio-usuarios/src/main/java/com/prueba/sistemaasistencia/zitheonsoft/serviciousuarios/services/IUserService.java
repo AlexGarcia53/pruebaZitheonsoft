@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.dtos.UserDTO;
+import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.dtos.UserDataDTO;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities.User;
 
 public interface IUserService {
@@ -17,4 +18,5 @@ public interface IUserService {
 
     List<UserDTO> findAll(int pageNumber, int pageSize);
 
+    UserDataDTO findUserData(Long id);
 }

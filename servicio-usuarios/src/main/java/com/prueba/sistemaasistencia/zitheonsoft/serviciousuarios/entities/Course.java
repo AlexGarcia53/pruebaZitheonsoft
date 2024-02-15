@@ -1,5 +1,6 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.CourseStatus;
 
 import jakarta.persistence.*;
@@ -18,6 +19,7 @@ public class Course {
     private String length;
     @Enumerated(EnumType.STRING)
     private CourseStatus status;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

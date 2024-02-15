@@ -3,6 +3,7 @@ package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.dtos.UserDataDTO;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities.EmergencyContact;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.excepciones.NoDataFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,4 +87,28 @@ public class UserService implements IUserService{
         return userDTOPage.getContent();
     }
 
+    @Transactional
+    @Override
+    public UserDataDTO findUserData(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new NoDataFoundException("No se encontró el usuario"));
+        return new UserDataDTO(
+                user.getId(),
+                user.getName(),
+                user.getLastname(),
+                user.getNacionality(),
+                user.getWorkStatus(),
+                user.getRole(),
+                user.getGender(),
+                user.getCivilStatus(),
+                user.getBirthDate(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getContactData(),
+                user.getLaborData(),
+                user.getLanguages(),
+                user.getCourses(),
+                user.getAcademicDegrees(),
+                user.getEmergencyContacts()
+        );
+    }
 }
