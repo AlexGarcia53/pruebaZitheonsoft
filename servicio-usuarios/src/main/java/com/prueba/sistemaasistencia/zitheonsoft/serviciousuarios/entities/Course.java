@@ -2,11 +2,7 @@ package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.CourseStatus;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -20,6 +16,9 @@ public class Course {
     private String name;
     private String platform;
     private String length;
+    @Enumerated(EnumType.STRING)
     private CourseStatus status;
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

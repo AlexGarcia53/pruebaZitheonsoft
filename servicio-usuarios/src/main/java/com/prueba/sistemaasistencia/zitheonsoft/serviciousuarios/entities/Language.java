@@ -1,11 +1,7 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.Level;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -17,5 +13,6 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Enumerated(EnumType.STRING)
     private Level level;
 }

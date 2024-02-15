@@ -2,12 +2,7 @@ package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -24,4 +19,7 @@ public class AcademicDegree {
     private LocalDate endDate;
     private String name;
     private String institution;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

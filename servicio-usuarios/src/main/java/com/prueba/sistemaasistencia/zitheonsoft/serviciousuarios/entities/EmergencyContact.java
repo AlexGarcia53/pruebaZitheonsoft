@@ -1,11 +1,6 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -22,4 +17,7 @@ public class EmergencyContact {
     private String lastname;
     private String relationship;
     private String address;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

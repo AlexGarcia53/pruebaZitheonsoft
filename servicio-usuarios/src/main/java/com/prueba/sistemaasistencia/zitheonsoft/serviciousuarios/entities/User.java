@@ -1,6 +1,7 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.*;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -28,6 +29,11 @@ public class User {
     private CivilStatus civilStatus;
     @Column(name="birth_date")
     private LocalDate birthDate;
+    @Column(name="email")
+    private String email;
+    @Column(name="password")
+    private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
     @OneToOne(cascade = CascadeType.ALL)
@@ -35,24 +41,90 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private LaborData laborData;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "languages_users", joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="language_id"),
-    uniqueConstraints = @UniqueConstraint(columnNames = {"language_id"}))
-    private List<Language> languages;
+            inverseJoinColumns = @JoinColumn(name="language_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"language_id"}))
+    private Set<Language> languages;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "courses_users", joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="course_id"))
-    private  List<Course> courses;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private  Set<Course> courses;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "degrees_users", joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="academic_degree_id"))
-    private List<AcademicDegree> academicDegrees;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<AcademicDegree> academicDegrees;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "emergency_contacts_users", joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="emergency_contact_id"))
-    private List<EmergencyContact> emergencyContacts;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<EmergencyContact> emergencyContacts;
+
+    public void addCourse(Course course){
+        course.setUser(this);
+        this.courses.add(course);
+    }
+
+    public void removeCourse(Course course){
+        course.setUser(null);
+        this.courses.remove(course);
+    }
+
+    public void addAcademicDegree(AcademicDegree academicDegree){
+        academicDegree.setUser(this);
+        this.academicDegrees.add(academicDegree);
+    }
+
+    public void removeAcademicDegree(AcademicDegree academicDegree){
+        academicDegree.setUser(null);
+        this.academicDegrees.remove(academicDegree);
+    }
+
+    public void addEmergencyContact(EmergencyContact emergencyContact){
+        emergencyContact.setUser(this);
+        this.emergencyContacts.add(emergencyContact);
+    }
+
+    public void removeEmergencyContact(EmergencyContact emergencyContact){
+        emergencyContact.setUser(null);
+        this.emergencyContacts.remove(emergencyContact);
+    }
+
+    public void addLanguage(Language language){
+        this.languages.add(language);
+    }
+
+    public void removeLanguage(Language language){
+        this.languages.remove(language);
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+        for (Course course : courses) {
+            course.setUser(this);
+        }
+    }
+
+    public void setAcademicDegrees(Set<AcademicDegree> academicDegrees) {
+        this.academicDegrees = academicDegrees;
+        for (AcademicDegree academicDegree : academicDegrees) {
+            academicDegree.setUser(this);
+        }
+    }
+
+    public void setEmergencyContacts(Set<EmergencyContact> emergencyContacts) {
+        this.emergencyContacts = emergencyContacts;
+        for (EmergencyContact emergencyContact : emergencyContacts) {
+            emergencyContact.setUser(this);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email);
+    }
 }
