@@ -1,5 +1,6 @@
 package com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.enums.*;
@@ -53,7 +54,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<AcademicDegree> academicDegrees;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "user")
     private Set<EmergencyContact> emergencyContacts;
 
     public void addCourse(Course course){
@@ -108,8 +109,26 @@ public class User {
         }
     }
 
-    public void setEmergencyContacts(Set<EmergencyContact> emergencyContacts) {
-        this.emergencyContacts = emergencyContacts;
+    public void setEmergencyContacts(Set<EmergencyContact> newEmergencyContacts) {
+        this.emergencyContacts = new HashSet<>();
+        this.emergencyContacts.clear();
+        // Nuevos contactos de emergencia
+        System.out.println("Nuevos contactos de emergencia");
+        for (EmergencyContact emergencyContact : newEmergencyContacts) {
+            System.out.println(emergencyContact.getName());
+        }
+
+        // Antiguos contactos de emergencia
+        System.out.println("Antiguos contactos de emergencia");
+        for (EmergencyContact emergencyContact : this.emergencyContacts) {
+            System.out.println(emergencyContact.getName());
+        }
+
+        for(EmergencyContact emergencyContact : newEmergencyContacts){
+            emergencyContact.setUser(this);
+            this.emergencyContacts.add(emergencyContact);
+        }
+
         for (EmergencyContact emergencyContact : emergencyContacts) {
             emergencyContact.setUser(this);
         }

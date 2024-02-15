@@ -7,14 +7,14 @@ import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.dtos.UserDTO;
 import com.prueba.sistemaasistencia.zitheonsoft.serviciousuarios.entities.User;
 
 public interface IUserService {
-    User save(User user);
+    UserDTO create(User user);
 
     Optional<User> findById(Long id);
 
-    Optional<User> update(Long id, User user);
+    UserDTO update(Long id, User user);
 
-    Optional<User> delete(Long id);
+    UserDTO delete(Long id);
 
-    List<UserDTO> findAll();
+    List<UserDTO> findAll(int pageNumber, int pageSize);
 
 }
